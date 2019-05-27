@@ -1,0 +1,68 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "9"
+    description: WAN rclone-blogw
+  creationTimestamp: null
+  generation: 1
+  labels:
+    k8s-app: rclone-blogw
+    location: wan
+  name: rclone-blogw
+  selfLink: /apis/extensions/v1beta1/namespaces/lan/deployments/rclone-blogw
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s-app: rclone-blogw
+      location: wan
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        description: WAN rclone-blogw
+      creationTimestamp: null
+      labels:
+        k8s-app: rclone-blogw
+        location: wan
+      name: rclone-blogw
+    spec:
+      containers:
+      - env:
+        - name: tz
+          value: Europe/Berlin
+        image: marvinmarvin/docker-k8s-rclone
+        imagePullPolicy: Always
+        name: rclone-blogw
+        volumeMounts:
+        - mountPath: /etc/cron.d
+          name: k8s-cfg-rclone-blogw
+        - mountPath: /root/.config/rclone
+          name: k8s-cfg-rclone-blogw
+        resources: {}
+        securityContext:
+          privileged: false
+          procMount: Default
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+      - name: k8s-cfg-rclone-blogw
+        hostPath:
+          path: /root/k8s-cfg/rclone-blogw
+          type: Directory
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      nodeSelector:
+        location: wan
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}

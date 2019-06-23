@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 RUN apt-get update -y && \
-    apt-get install -y curl unzip cron man-db tzdata && \
+    apt-get install -y curl unzip cron man-db nano tzdata && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN curl https://rclone.org/install.sh | bash -s beta
 VOLUME ["/root/.config/rclone", "/etc/cron.d"]

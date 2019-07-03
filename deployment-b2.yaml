@@ -44,8 +44,10 @@ spec:
         volumeMounts:
         - mountPath: /etc/cron.d
           name: k8s-cfg-rclone-b2
+          readOnly: true
         - mountPath: /root/.config/rclone
           name: k8s-cfg-rclone-b2
+          readOnly: true
         resources: {}
         securityContext:
           privileged: false

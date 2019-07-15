@@ -47,7 +47,7 @@ spec:
           readOnly: true
         - mountPath: /root/.config/rclone
           name: k8s-cfg-rclone-blog-cumulus
-          readOnly: true
+          readOnly: false
         resources: {}
         securityContext:
           privileged: false

@@ -1,3 +1,4 @@
+#
 FROM amd64/ubuntu:18.04
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends curl unzip cron man-db tzdata && \

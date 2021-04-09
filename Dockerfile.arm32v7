@@ -1,4 +1,3 @@
-#
 ### in case of local build
 #FROM golang:1.12.0 AS builder
 #WORKDIR /builder/working/directory
@@ -15,6 +14,6 @@ VOLUME ["/root/.config/rclone", "/etc/cron.d"]
 ADD rclone.conf /root/.config/rclone/rclone.conf
 ADD crontab /etc/cron.d/crontab
 RUN touch /var/log/cron.log && /usr/bin/crontab /etc/cron.d/crontab && chmod 0644 /etc/cron.d/crontab
-ENV TZ=Europe/Berlin
+ENV TZ=UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 CMD ["cron", "-f"]
